@@ -16,7 +16,12 @@ export function SearchLayout () {
               <Typography color="white">Add cidade</Typography>
             </Box>
             <Styles.Form>
-              <Input />
+              <Input
+                leftIcon={{
+                  name: 'search',
+                  size: 25
+                }}
+              />
             </Styles.Form>
           </Box>
         </Styles.Wrapper>

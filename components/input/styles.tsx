@@ -38,12 +38,12 @@ export const Input = styled('input', {
   variants: {
     hasLeftIcon: {
       true: {
-        paddingLeft: '2.52rem'
+        paddingLeft: '3rem'
       }
     },
     hasRightIcon: {
       true: {
-        paddingRight: '2.7rem'
+        paddingRight: '3rem'
       }
     },
     hasError: {
