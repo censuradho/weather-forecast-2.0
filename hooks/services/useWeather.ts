@@ -14,6 +14,7 @@ export function useWeather (city?: string) {
       setIsLoading(true)
       const response = await getWeather(city)
       setData(response.data)
+      setError(null)
     } catch (err) {
       setError(new Error(err as any))
       setData(null)

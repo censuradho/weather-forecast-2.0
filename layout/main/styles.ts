@@ -1,7 +1,10 @@
 import { styled } from 'stitches.config'
 
 export const Container = styled('div', {
-  width: '100%'
+  width: '100%',
+  minHeight: '100vh',
+  display: 'flex',
+  flexDirection: 'column'
 })
 
 export const Greeting = styled('div', {
