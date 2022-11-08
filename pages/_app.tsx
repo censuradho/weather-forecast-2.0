@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 
 import { globalStyle } from 'stitches.config'
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App ({ Component, pageProps }: AppProps) {
   useEffect(() => {
     globalStyle()
   }, [])
