@@ -8,6 +8,7 @@ export function HomeLayout () {
     <MainLayout>
       <Container>
         <Styles.Container>
+
           <FavoriteCard
             city="Porto Alegre"
             maxTemperature="39"
