@@ -1,3 +1,5 @@
+import { FAVORITES } from 'constants/localStorage'
+import { useLocalStorage } from 'hooks'
 import { createContext, ReactNode, useContext, useState } from 'react'
 import { GetWeatherResponse } from 'services/weather/types'
 
@@ -12,7 +14,7 @@ interface WeatherProviderProps {
 const WeatherContext = createContext({} as WeatherContextProps)
 
 export function WeatherProvider ({ children }: WeatherProviderProps) {
-  const [favorites, setFavorites] = useState<GetWeatherResponse[]>([])
+  const [favorites, setFavorites] = useLocalStorage<GetWeatherResponse[]>(FAVORITES, [])
 
   return (
     <WeatherContext.Provider value={{
