@@ -3,18 +3,47 @@ import { MainLayout } from 'layout/main'
 import { FavoriteCard } from './components'
 import * as Styles from './styles'
 
+const mock = [
+  {
+    city: 'Porto Alegre',
+    maxTemperature: '39',
+    meanTemperature: '39',
+    minTemperature: '39',
+    createdAt: new Date()
+  },
+  {
+    city: 'Porto Alegre',
+    maxTemperature: '39',
+    meanTemperature: '39',
+    minTemperature: '39',
+    createdAt: new Date()
+  },
+  {
+    city: 'Porto Alegre',
+    maxTemperature: '39',
+    meanTemperature: '39',
+    minTemperature: '39',
+    createdAt: new Date()
+  }
+]
+
 export function HomeLayout () {
+  const renderFavoriteCards = mock.map((value, index) => (
+    <FavoriteCard
+      key={index}
+      city={value.city}
+      maxTemperature={value.maxTemperature}
+      meanTemperature={value.meanTemperature}
+      minTemperature={value.minTemperature}
+      createdAt={value.createdAt}
+    />
+  ))
+
   return (
     <MainLayout>
       <Container>
         <Styles.Container>
-          <FavoriteCard
-            city="Porto Alegre"
-            maxTemperature="39"
-            meanTemperature="39"
-            minTemperature="30"
-            createdAt={new Date()}
-          />
+          {renderFavoriteCards}
         </Styles.Container>
         <Box fullWidth marginTop={2}>
           <Button
