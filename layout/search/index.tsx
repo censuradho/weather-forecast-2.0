@@ -1,5 +1,5 @@
 
-import { Box, ButtonIcon, Container, Typography } from 'components'
+import { Box, ButtonIcon, Container, Input, Typography } from 'components'
 import { MainLayout } from 'layout/main'
 import * as Styles from './styles'
 
@@ -8,11 +8,16 @@ export function SearchLayout () {
     <MainLayout>
       <Container>
         <Styles.Wrapper>
-          <Box alignItems="center">
-            <ButtonIcon
-              icon={{ name: 'arrowLeft' }}
-            />
-            <Typography color="white">Add cidade</Typography>
+          <Box flexDirection="column" gap={2}>
+            <Box alignItems="center" gap={0.5}>
+              <ButtonIcon
+                icon={{ name: 'arrowLeft' }}
+              />
+              <Typography color="white">Add cidade</Typography>
+            </Box>
+            <Styles.Form>
+              <Input />
+            </Styles.Form>
           </Box>
         </Styles.Wrapper>
       </Container>
