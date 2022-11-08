@@ -50,5 +50,5 @@ export interface GetWeatherResponse {
   'timezone': 7200,
   'id': 3163858,
   'name': 'Zocca',
-  'cod': 200
+  'cod': string | number
 }

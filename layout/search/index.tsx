@@ -3,6 +3,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 import { Box, ButtonIcon, Container, Input, Typography } from 'components'
 import { MainLayout } from 'layout/main'
+import { useDebounce } from 'hooks'
+import { useWeather } from 'hooks/services'
+
 import * as Styles from './styles'
 import { searchSchemaValidation } from './validations'
 import { SearchFormData } from './types'
@@ -11,6 +14,7 @@ export function SearchLayout () {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors }
   } = useForm<SearchFormData>({
     resolver: yupResolver(searchSchemaValidation)
@@ -18,6 +22,20 @@ export function SearchLayout () {
 
   const onSubmit = async (data: SearchFormData) => {
 
+  }
+
+  const city = useDebounce(watch('city'), 1000)
+
+  const { data, error } = useWeather(city)
+
+  const renderResult = () => {
+    if (error) return <Typography>Nenhum resultado encontrado</Typography>
+
+    if (data) {
+      return (
+        <Styles.Result>{data.name}</Styles.Result>
+      )
+    }
   }
 
   return (
@@ -41,6 +59,10 @@ export function SearchLayout () {
                 }}
               />
             </Styles.Form>
+          </Box>
+          <Box flexDirection="column" gap={1}>
+            <Typography variants="lg" color="white">Resultados</Typography>
+            {renderResult()}
           </Box>
         </Styles.Wrapper>
       </Container>

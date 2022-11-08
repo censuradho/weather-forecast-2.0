@@ -14,6 +14,9 @@ export const Typography = styled('span', {
       '2xl': {
         fontSize: '$2xl'
       },
+      lg: {
+        fontSize: '$lg'
+      },
       text: {
         true: {
           fontSize: '$sm'
