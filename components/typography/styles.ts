@@ -1,15 +1,28 @@
 import { styled } from 'stitches.config'
-export const Typography = styled("span", {
 
+export const Typography = styled('span', {
   variants: {
-    text: {
+    ellipsis: {
       true: {
-        fontSize: '$sm',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+        width: '100%'
       }
     },
-    heading: {
-      true: {
-        fontSize: '$md',
+
+    variants: {
+      '2xl': {
+        fontSize: '$2xl'
+      },
+      text: {
+        true: {
+          fontSize: '$sm'
+        }
+      },
+      heading: {
+        true: {
+          fontSize: '$md'
+        }
       }
     },
     bold: {
@@ -19,11 +32,12 @@ export const Typography = styled("span", {
     },
     lineThrough: {
       true: {
-      textDecoration: 'line-through'
+        textDecoration: 'line-through'
       }
     }
   },
+
   defaultVariants: {
-    text: true
+    variants: 'text'
   }
-});
+})

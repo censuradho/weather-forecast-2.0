@@ -7,7 +7,7 @@ export function Typography (props: TypographyProps) {
 
   return (
     <Styles.Typography
-    style={{ color: theme.colors[color || 'color'].value }}
+      style={{ color: theme.colors[color || 'color'].value }}
       {...otherProps}
     >
       {children}
