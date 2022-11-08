@@ -32,7 +32,6 @@ function BaseButton (props: ButtonProps) {
 
   const renderButton = () => (
     <Styles.Button
-      as={as}
       type={type}
       disabled={disabled || loading}
       {...otherProps}
@@ -48,7 +47,12 @@ function BaseButton (props: ButtonProps) {
   const renderContent = () => {
     if (as === 'a' && href) {
       return (
-        <Link href={href}>
+        <Link
+          style={{
+            width: otherProps?.fullWidth ? '100%' : 'auto'
+          }}
+          href={href}
+        >
           {renderButton()}
         </Link>
       )

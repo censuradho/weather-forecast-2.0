@@ -48,7 +48,7 @@ export function ButtonIcon (props: ButtonIconProps) {
       type={type}
       {...otherProps}
     >
-      <Icon size={30} {...icon} />
+      <Icon size={20} {...icon} />
     </Styles.Button>
   )
 }

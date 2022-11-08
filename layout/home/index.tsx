@@ -1,4 +1,5 @@
 import { Box, Button, Container } from 'components'
+import { paths } from 'constants/routes'
 import { MainLayout } from 'layout/main'
 import { useState } from 'react'
 import { FavoriteCard, ReportWeather } from './components'
@@ -29,7 +30,7 @@ const mock = [
 ]
 
 export function HomeLayout () {
-  const [report, setReport] = useState<{} | null>({})
+  const [report, setReport] = useState<{} | null>(null)
 
   const renderFavoriteCards = mock.map((value, index) => (
     <FavoriteCard
@@ -59,6 +60,8 @@ export function HomeLayout () {
         </Styles.Container>
         <Box fullWidth marginTop={2}>
           <Button
+            href={paths.search}
+            as="a"
             icon={{
               name: 'arrowForward'
             }}
