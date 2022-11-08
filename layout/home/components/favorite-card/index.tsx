@@ -16,7 +16,7 @@ export const FavoriteCard = memo((props: FavoriteCardProps) => {
   } = props
 
   return (
-    <Styles.Container>
+    <Styles.Container onClick={onClick}>
       <Box gap={1}>
         <Box
           flexDirection="column"

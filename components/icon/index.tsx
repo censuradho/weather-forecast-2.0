@@ -8,7 +8,8 @@ export function Icon (props: IconProps) {
   const {
     name,
     color,
-    customColor
+    customColor,
+    ...otherProps
   } = props
 
   const Svg = icons[name]
@@ -16,6 +17,6 @@ export function Icon (props: IconProps) {
   const fill = ((customColor || theme.colors[color || 'color'].value)) as string
 
   return (
-    <Svg style={{ fill }} />
+    <Svg style={{ fill }} {...otherProps}/>
   )
 }

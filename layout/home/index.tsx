@@ -1,5 +1,6 @@
 import { Box, Button, Container } from 'components'
 import { MainLayout } from 'layout/main'
+import { useState } from 'react'
 import { FavoriteCard, ReportWeather } from './components'
 import * as Styles from './styles'
 
@@ -28,6 +29,8 @@ const mock = [
 ]
 
 export function HomeLayout () {
+  const [report, setReport] = useState<{} | null>({})
+
   const renderFavoriteCards = mock.map((value, index) => (
     <FavoriteCard
       key={index}
@@ -36,12 +39,20 @@ export function HomeLayout () {
       meanTemperature={value.meanTemperature}
       minTemperature={value.minTemperature}
       createdAt={value.createdAt}
+      onClick={() => setReport(value)}
     />
   ))
 
+  const handleOpenChangeReportWeatherDialog = (open: boolean) => {
+    if (!open) setReport(null)
+  }
+
   return (
     <MainLayout>
-      <ReportWeather />
+      <ReportWeather
+        open={!!report}
+        onOpenChange={handleOpenChangeReportWeatherDialog}
+      />
       <Container>
         <Styles.Container>
           {renderFavoriteCards}

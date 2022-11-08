@@ -1,3 +1,4 @@
+import { ButtonIcon } from 'components/button-icon'
 import { memo } from 'react'
 
 import * as Styles from './styles'
@@ -15,7 +16,12 @@ export const Dialog = memo((props: DialogProps) => {
       <Styles.Overlay />
       <Styles.Content>
         <Styles.Close asChild>
-
+          <ButtonIcon
+            icon={{
+              name: 'close',
+              color: 'white'
+            }}
+          />
         </Styles.Close>
         {children}
       </Styles.Content>

@@ -36,9 +36,14 @@ export const Content = styled(DialogPrimitive.Content, {
   '&:focus': { outline: 'none' }
 })
 
+export const Close = styled(DialogPrimitive.Close, {
+  position: 'absolute',
+  top: '1rem',
+  right: '1rem'
+})
+
 export const {
   Portal,
   Root,
-  DialogTrigger,
-  Close
+  DialogTrigger
 } = DialogPrimitive
