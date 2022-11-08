@@ -11,6 +11,9 @@ export const Typography = styled('span', {
     },
 
     variants: {
+      '4xl': {
+        fontSize: '$4xl'
+      },
       '2xl': {
         fontSize: '$2xl'
       },
@@ -20,6 +23,11 @@ export const Typography = styled('span', {
       text: {
         true: {
           fontSize: '$sm'
+        }
+      },
+      xxs: {
+        true: {
+          fontSize: '$xxs'
         }
       },
       heading: {

@@ -1,13 +1,19 @@
-import { FAVORITES } from 'constants/localStorage'
+import { FAVORITES, RECENTS_KEY } from 'constants/localStorage'
 import { useLocalStorage } from 'hooks'
 import { createContext, ReactNode, useContext } from 'react'
 import { GetWeatherResponse } from 'services/weather/types'
 
+interface Recent {
+  id: number
+  name: string
+}
 interface WeatherContextProps {
   favorites: GetWeatherResponse[]
   addFavorite: (item: GetWeatherResponse) => void
   removeFavorite: (id: number) => void
-  cleanFavoriteList: () => void
+  cleanFavoriteList: () => void,
+  addRecent: (item: Recent) => void
+  recents: Recent[]
 }
 
 interface WeatherProviderProps {
@@ -18,6 +24,7 @@ const WeatherContext = createContext({} as WeatherContextProps)
 
 export function WeatherProvider ({ children }: WeatherProviderProps) {
   const [favorites, setFavorites] = useLocalStorage<GetWeatherResponse[]>(FAVORITES, [])
+  const [recents, setRecents] = useLocalStorage<Recent[]>(RECENTS_KEY, [])
 
   const handleAddFavorites = (item: GetWeatherResponse) => {
     setFavorites(prevState => ([
@@ -34,13 +41,22 @@ export function WeatherProvider ({ children }: WeatherProviderProps) {
     setFavorites([])
   }
 
+  const handleAddRecent = (item: Recent) => {
+    setRecents(prevState => ([
+      ...prevState.filter(value => value.id !== item.id),
+      item
+    ]))
+  }
+
   return (
     <WeatherContext.Provider
       value={{
         favorites,
+        recents,
         addFavorite: handleAddFavorites,
         removeFavorite: handleRemoveFavorite,
-        cleanFavoriteList: handleCleanFavoriteList
+        cleanFavoriteList: handleCleanFavoriteList,
+        addRecent: handleAddRecent
       }}>
       {children}
     </WeatherContext.Provider>

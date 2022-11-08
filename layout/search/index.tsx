@@ -10,9 +10,11 @@ import * as Styles from './styles'
 import { searchSchemaValidation } from './validations'
 import { SearchFormData } from './types'
 import { useWeatherContext } from 'context/weather'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 import { paths } from 'constants/routes'
+import { ReportWeather } from 'components/report-weather'
+import { GetWeatherResponse } from 'services/weather/types'
 
 export function SearchLayout () {
   const {
@@ -27,17 +29,52 @@ export function SearchLayout () {
   const router = useRouter()
 
   const {
-    addFavorite,
-    favorites,
-    removeFavorite
+    addRecent,
+    recents,
+    favorites
   } = useWeatherContext()
 
   const city = useDebounce(watch('city'), 1000)
 
   const { data, error, fetchData } = useWeather(city)
+  const [report, setReport] = useState<GetWeatherResponse | null>(null)
 
   const onSubmit = async (data: SearchFormData) => {
     fetchData()
+  }
+
+  const handleCloseReport = (open: boolean) => {
+    if (!open) setReport(null)
+  }
+
+  const handleReport = (report: GetWeatherResponse) => {
+    setReport(report)
+    addRecent({
+      id: report.id,
+      name: report.name
+    })
+  }
+
+  const renderRecentes = useMemo(() => {
+    return recents.map(favorite => (
+      <li key={favorite.id}>
+        {favorite.name}
+        <ButtonIcon
+          icon={{ name: 'close' }}
+        />
+      </li>
+    ))
+  }, [favorites])
+
+  const renderReportWeather = () => {
+    if (!report) return null
+    return (
+      <ReportWeather
+        open={!!report}
+        onOpenChange={handleCloseReport}
+        data={report}
+      />
+    )
   }
 
   const renderResult = () => {
@@ -47,25 +84,14 @@ export function SearchLayout () {
 
     if (data) {
       return (
-        <Styles.Result onClick={() => addFavorite(data)}>{data.name}</Styles.Result>
+        <Styles.Result onClick={() => handleReport(data)}>{data.name}</Styles.Result>
       )
     }
   }
 
-  const renderRecentesFavorite = useMemo(() => {
-    return favorites.map(favorite => (
-      <li key={favorite.id}>
-        {favorite.name}
-        <ButtonIcon
-          icon={{ name: 'close' }}
-          onClick={() => removeFavorite(favorite.id)}
-        />
-      </li>
-    ))
-  }, [favorites])
-
   return (
     <MainLayout>
+      {renderReportWeather()}
       <Container>
         <Styles.Wrapper>
           <Box flexDirection="column" gap={2}>
@@ -95,7 +121,7 @@ export function SearchLayout () {
           <Box flexDirection="column" flex={1} gap={1}>
             <Typography variants="lg" color="white">Recentes</Typography>
             <Styles.FavoriteList>
-              {renderRecentesFavorite}
+              {renderRecentes}
             </Styles.FavoriteList>
           </Box>
         </Styles.Wrapper>
