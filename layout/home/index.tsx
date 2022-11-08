@@ -1,6 +1,6 @@
 import { Box, Button, Container } from 'components'
 import { MainLayout } from 'layout/main'
-import { FavoriteCard } from './components'
+import { FavoriteCard, ReportWeather } from './components'
 import * as Styles from './styles'
 
 const mock = [
@@ -41,6 +41,7 @@ export function HomeLayout () {
 
   return (
     <MainLayout>
+      <ReportWeather />
       <Container>
         <Styles.Container>
           {renderFavoriteCards}

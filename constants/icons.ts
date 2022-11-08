@@ -1,5 +1,9 @@
-import { IosArrowForward } from '@meronex/icons/ios'
+import {
+  IosArrowForward,
+  IosClose
+} from '@meronex/icons/ios'
 
 export const icons = {
-  arrowForward: IosArrowForward
+  arrowForward: IosArrowForward,
+  close: IosClose
 }
