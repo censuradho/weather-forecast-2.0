@@ -5,12 +5,12 @@ import type { IconPublicProps } from './types'
 export function IconPublic (props: IconPublicProps) {
   const {
     name,
-    ...otherProps
+    size = 30
   } = props
 
   const Svg = iconPublic[name]
 
   return (
-    <Svg {...otherProps}/>
+    <Svg width={size} height={size} />
   )
 }

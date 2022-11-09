@@ -4,4 +4,5 @@ export type IconNames = keyof typeof iconPublic
 
 export interface IconPublicProps {
   name: IconNames
+  size?: number
 }
