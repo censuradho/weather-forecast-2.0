@@ -17,7 +17,7 @@ export interface Favorite extends GetWeatherResponse {
 interface WeatherContextProps {
   favorites: Favorite[]
   addFavorite: (item: GetWeatherResponse) => void
-  removeFavorite: (uuid: string) => void
+  removeFavorite: (id: number) => void
   cleanFavoriteList: () => void,
   addRecent: (item: Recent) => void
   removeRecent: (id: number) => void
@@ -47,8 +47,8 @@ export function WeatherProvider ({ children }: WeatherProviderProps) {
     ]))
   }
 
-  const handleRemoveFavorite = (uuid: string) => {
-    setFavorites(prevState => prevState.filter(value => value.uuid !== uuid))
+  const handleRemoveFavorite = (id: number) => {
+    setFavorites(prevState => prevState.filter(value => value.id !== id))
   }
 
   const handleCleanFavoriteList = () => {

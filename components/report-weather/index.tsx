@@ -61,14 +61,14 @@ export function ReportWeather (props: ReportWeatherProps) {
               <IconPublic name="sunrise" />
               <Box flexDirection="column" gap={0.5}>
                 <Typography variants="xxs">Nascer do sol</Typography>
-                <Typography color="heading">{format(new Date(data.sys.sunrise), 'hh:mm')}</Typography>
+                <Typography color="heading">{format(new Date(data.sys.sunrise * 1000), "hh:mm aaaaa'm")}</Typography>
               </Box>
             </Box>
             <Box flexDirection="column" alignItems="flex-start" gap={0.5}>
               <IconPublic name="sunset" />
               <Box flexDirection="column" gap={0.5}>
                 <Typography variants="xxs">Pôr do sol</Typography>
-                <Typography color="heading">{format(new Date(data.sys.sunset), 'hh:mm')}</Typography>
+                <Typography color="heading">{format(new Date(data.sys.sunset * 1000), "hh:mm aaaaa'm")}</Typography>
               </Box>
             </Box>
           </Box>
