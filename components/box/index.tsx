@@ -1,4 +1,4 @@
-import { CSSProperties, memo, ReactNode } from 'react'
+import { CSSProperties, ReactNode } from 'react'
 
 type ViewStyle = Pick<CSSProperties,
   'alignItems'
@@ -38,7 +38,7 @@ export function Box (props: BoxProps) {
       width: fullWidth ? '100%' : 'auto',
       ...(gap && { gap: `${gap}rem` }),
       ...(marginTop && { marginTop: `${marginTop}rem` }),
-      ...(wrap && ({ flexWrap: 'wrap' })),
+      ...(wrap && ({ flexWrap: 'wrap' }))
     }}
     >
       {children}
