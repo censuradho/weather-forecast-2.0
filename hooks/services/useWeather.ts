@@ -7,12 +7,16 @@ export function useWeather (city?: string) {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<Error | null>(null)
 
-  const handleGetData = async () => {
-    if (!city) return
+  const handleGetData = async (newCity?: string) => {
+    if (!newCity && !city) return
+
+    const _city = newCity || city
+
+    if (!_city) return
 
     try {
       setIsLoading(true)
-      const response = await getWeather(city)
+      const response = await getWeather(_city)
       setData(response.data)
       setError(null)
     } catch (err) {

@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 
 import { Box, ButtonIcon, Container, Input, Typography } from 'components'
@@ -57,16 +57,16 @@ export function SearchLayout () {
   }
 
   const renderRecentes = useMemo(() => {
-    return recents.map(favorite => (
-      <li key={favorite.id}>
-        {favorite.name}
+    return recents.map(recent => (
+      <li key={recent.id} onClick={() => fetchData(recent.name)}>
+        {recent.name}
         <ButtonIcon
           icon={{ name: 'close' }}
-          onClick={() => removeRecent(favorite.id)}
+          onClick={() => removeRecent(recent.id)}
         />
       </li>
     ))
-  }, [recents])
+  }, [recents, fetchData])
 
   const renderReportWeather = () => {
     if (!report) return null

@@ -33,6 +33,7 @@ export const FavoriteList = styled('ul', {
 
   li: {
     display: 'flex',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    cursor: 'pointer'
   }
 })
