@@ -1,7 +1,6 @@
 export * from './typography'
 export * from './container'
 export * from './box'
-export * from './avatar'
 export * from './icon'
 export * from './button'
 export * from './dialog'
