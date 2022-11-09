@@ -1,4 +1,4 @@
-import { Box, Container, IconPublic, Typography } from 'components'
+import { Box, IconPublic, Typography } from 'components'
 import { paths } from 'constants/routes'
 import Link from 'next/link'
 import { ReactNode } from 'react'

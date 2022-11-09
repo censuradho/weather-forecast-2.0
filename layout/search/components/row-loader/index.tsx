@@ -5,8 +5,8 @@ import { theme } from 'stitches.config'
 
 export const RowLoader = memo(() => (
   <ContentLoader
-    speed={0.4}
-    width={400}
+    speed={1}
+    width="100%"
     height={40}
     viewBox="0 0 400 40"
     backgroundColor={theme.colors.background.value}

@@ -33,8 +33,8 @@ export function ReportWeather (props: ReportWeatherProps) {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <Container>
         <Box marginTop={1} flexDirection="column" gap={2}>
-          <Box gap={3} flexDirection="column">
-            <Box justifyContent="space-between" alignItems="center">
+          <Box flexDirection="column">
+            <Box marginBottom={40} justifyContent="space-between" alignItems="center">
               <Typography>{format(new Date(), 'EEEE, dd/MM/yyyy')}</Typography>
               <ButtonIcon
                 onClick={handleToggleFavorite}
@@ -43,6 +43,9 @@ export function ReportWeather (props: ReportWeatherProps) {
                   color: 'white'
                 }}
               />
+            </Box>
+            <Box>
+              <Typography color="white" bold>{data.name}</Typography>
             </Box>
             <Typography color="heading" variants="4xl">{`${data?.main?.feels_like.toFixed(1)} °C`}</Typography>
           </Box>

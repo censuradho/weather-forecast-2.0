@@ -70,6 +70,8 @@ export function WeatherProvider ({ children }: WeatherProviderProps) {
   }
 
   const handleFetchFavorite = async () => {
+    if (favorites.length === 0) return
+
     try {
       const refetchFavorites: Favorite[] = []
       setIsFetching(true)

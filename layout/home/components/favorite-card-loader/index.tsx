@@ -4,8 +4,8 @@ import { theme } from 'stitches.config'
 
 export const FavoriteCardLoader = memo(() => (
   <ContentLoader
-    speed={0.5}
-    width={400}
+    speed={1}
+    width="100%"
     height={164}
     viewBox="0 0 400 164"
     backgroundColor={theme.colors.background.value}

@@ -6,7 +6,7 @@ export const Container = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: '1rem',
-
+  overflow: 'auto',
   '@smartphone-min': {
     display: 'grid',
     gridTemplateColumns: 'repeat(2, 1fr)'
