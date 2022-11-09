@@ -42,7 +42,7 @@ export function WeatherProvider ({ children }: WeatherProviderProps) {
     }
 
     setFavorites(prevState => ([
-      ...prevState.filter(value => value.uuid !== favorite.uuid),
+      ...prevState,
       favorite
     ]))
   }
