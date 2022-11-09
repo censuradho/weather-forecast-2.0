@@ -45,7 +45,7 @@ export const FavoriteCard = memo((props: FavoriteCardProps) => {
           </Box>
         </Box>
       </Box>
-      <Box marginTop={1}>
+      <Box marginTop={1} fullWidth>
         <Typography>{format(new Date(createdAt), 'dd/MM/yyyy')}</Typography>
       </Box>
     </Styles.Container>

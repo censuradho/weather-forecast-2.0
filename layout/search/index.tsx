@@ -10,7 +10,7 @@ import * as Styles from './styles'
 import { searchSchemaValidation } from './validations'
 import { SearchFormData } from './types'
 import { useWeatherContext } from 'context/weather'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 import { paths } from 'constants/routes'
 import { ReportWeather } from 'components/report-weather'
@@ -31,7 +31,8 @@ export function SearchLayout () {
   const {
     addRecent,
     recents,
-    favorites
+    favorites,
+    removeRecent
   } = useWeatherContext()
 
   const city = useDebounce(watch('city'), 1000)
@@ -61,10 +62,11 @@ export function SearchLayout () {
         {favorite.name}
         <ButtonIcon
           icon={{ name: 'close' }}
+          onClick={() => removeRecent(favorite.id)}
         />
       </li>
     ))
-  }, [favorites])
+  }, [recents])
 
   const renderReportWeather = () => {
     if (!report) return null

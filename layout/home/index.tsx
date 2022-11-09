@@ -1,44 +1,25 @@
 import { Box, Button, Container } from 'components'
+import { ReportWeather } from 'components/report-weather'
 import { paths } from 'constants/routes'
+import { Favorite, useWeatherContext } from 'context/weather'
 import { MainLayout } from 'layout/main'
 import { useState } from 'react'
-import { FavoriteCard, ReportWeather } from './components'
+
+import { FavoriteCard } from './components'
 import * as Styles from './styles'
 
-const mock = [
-  {
-    city: 'Porto Alegre',
-    maxTemperature: '39',
-    meanTemperature: '39',
-    minTemperature: '39',
-    createdAt: new Date()
-  },
-  {
-    city: 'Porto Alegre',
-    maxTemperature: '39',
-    meanTemperature: '39',
-    minTemperature: '39',
-    createdAt: new Date()
-  },
-  {
-    city: 'Porto Alegre',
-    maxTemperature: '39',
-    meanTemperature: '39',
-    minTemperature: '39',
-    createdAt: new Date()
-  }
-]
-
 export function HomeLayout () {
-  const [report, setReport] = useState<{} | null>(null)
+  const { favorites } = useWeatherContext()
 
-  const renderFavoriteCards = mock.map((value, index) => (
+  const [report, setReport] = useState<Favorite | null>(null)
+
+  const renderFavoriteCards = favorites.map((value, index) => (
     <FavoriteCard
       key={index}
-      city={value.city}
-      maxTemperature={value.maxTemperature}
-      meanTemperature={value.meanTemperature}
-      minTemperature={value.minTemperature}
+      city={value.name}
+      maxTemperature={value.main.temp_max}
+      meanTemperature={value.main.temp}
+      minTemperature={value.main.temp_min}
       createdAt={value.createdAt}
       onClick={() => setReport(value)}
     />
@@ -48,12 +29,20 @@ export function HomeLayout () {
     if (!open) setReport(null)
   }
 
-  return (
-    <MainLayout>
+  const renderReport = () => {
+    if (!report) return null
+    return (
       <ReportWeather
+        data={report}
         open={!!report}
         onOpenChange={handleOpenChangeReportWeatherDialog}
       />
+    )
+  }
+
+  return (
+    <MainLayout>
+      {renderReport()}
       <Container>
         <Styles.Container>
           {renderFavoriteCards}
