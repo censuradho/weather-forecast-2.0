@@ -32,7 +32,7 @@ export function ReportWeather (props: ReportWeatherProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <Container>
-        <Box flexDirection="column" gap={2}>
+        <Box marginTop={1} flexDirection="column" gap={2}>
           <Box gap={3} flexDirection="column">
             <Box justifyContent="space-between" alignItems="center">
               <Typography>{format(new Date(), 'EEEE, dd/MM/yyyy')}</Typography>
