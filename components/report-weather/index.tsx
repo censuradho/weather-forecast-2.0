@@ -1,4 +1,11 @@
-import { Dialog, Container, Typography, Box, ButtonIcon } from 'components'
+import {
+  Dialog,
+  Container,
+  Typography,
+  Box,
+  ButtonIcon,
+  IconPublic
+} from 'components'
 import { useWeatherContext } from 'context/weather'
 import { format } from 'lib/date-fns'
 
@@ -60,13 +67,19 @@ export function ReportWeather (props: ReportWeatherProps) {
             </Box>
           </Box>
           <Box gap={1}>
-            <Box flexDirection="column" gap={0.5}>
-              <Typography variants="xxs">max</Typography>
-              <Typography color="heading">{`${data.main.temp_max} °C`}</Typography>
+            <Box>
+              <IconPublic name="max" />
+              <Box flexDirection="column" gap={0.5}>
+                <Typography variants="xxs">max</Typography>
+                <Typography color="heading">{`${data.main.temp_max} °C`}</Typography>
+              </Box>
             </Box>
-            <Box flexDirection="column" gap={0.5}>
-              <Typography variants="xxs">min</Typography>
-              <Typography color="heading">{`${data.main.temp_min} °C`}</Typography>
+            <Box>
+              <IconPublic name="min" />
+              <Box flexDirection="column" gap={0.5}>
+                <Typography variants="xxs">min</Typography>
+                <Typography color="heading">{`${data.main.temp_min} °C`}</Typography>
+              </Box>
             </Box>
           </Box>
         </Box>

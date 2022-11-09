@@ -26,22 +26,22 @@ export const FavoriteCard = memo((props: FavoriteCardProps) => {
             color="heading"
             ellipsis
           >{city}</Typography>
-          <Typography variants="2xl">{meanTemperature}</Typography>
+          <Typography variants="2xl">{`${meanTemperature.toFixed(0)}°C`}</Typography>
         </Box>
         <Box flexDirection="column" gap={1}>
           <Box flexDirection="column" gap={0.5}>
             <Typography>Min</Typography>
             <Typography
               color="heading"
-              variants="2xl"
-            >{minTemperature}</Typography>
+              variants="heading"
+            >{`${minTemperature.toFixed(0)}°C`}</Typography>
           </Box>
           <Box flexDirection="column" gap={0.5}>
             <Typography>Max</Typography>
             <Typography
               color="heading"
-              variants="2xl"
-            >{maxTemperature}</Typography>
+              variants="heading"
+            >{`${maxTemperature.toFixed(0)}°C`}</Typography>
           </Box>
         </Box>
       </Box>

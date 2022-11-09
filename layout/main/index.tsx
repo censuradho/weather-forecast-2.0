@@ -12,17 +12,7 @@ export function MainLayout ({ children }: MainLayoutProps) {
 
   return (
     <Styles.Container>
-      <Styles.Greeting>
-        <div>
-          <span>Olá</span><br />
-          <strong>{username}</strong>
-        </div>
-        <Avatar
-          size={4}
-          url="https://github.com/censuradho.png"
-          username={username}
-        />
-      </Styles.Greeting>
+
       {children}
     </Styles.Container>
   )
