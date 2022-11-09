@@ -8,8 +8,14 @@ import {
 } from 'components'
 import { useWeatherContext } from 'context/weather'
 import { format } from 'lib/date-fns'
+import { useEffect, useMemo } from 'react'
+import { getHourlyForecast } from 'services/weather'
 
 import { ReportWeatherProps } from './types'
+import { LineChart } from './components'
+import { useHourlyForecast } from 'hooks/services'
+import { LineChartProps } from './components/line-chart/types'
+import { parseTemperatureLabel } from 'utils/helpers'
 
 export function ReportWeather (props: ReportWeatherProps) {
   const { onOpenChange, open, data } = props
@@ -20,6 +26,13 @@ export function ReportWeather (props: ReportWeatherProps) {
     addFavorite
   } = useWeatherContext()
 
+  const {
+    data: hourlyForecastData
+  } = useHourlyForecast({
+    lat: data.coord.lat,
+    lon: data.coord.lon
+  })
+
   const favoriteIds = favorites.map(value => value.id)
   const isFavorited = favoriteIds.includes(data.id)
 
@@ -27,6 +40,23 @@ export function ReportWeather (props: ReportWeatherProps) {
     if (isFavorited) return removeFavorite(data.id)
 
     addFavorite(data)
+  }
+
+  const lineChartHourlyForecast: LineChartProps['data'] = useMemo(() =>
+    hourlyForecastData.map(value => ({
+      day: format(value.dt_txt, 'EEEE - hh:mm'),
+      temperature: `${value.main.temp}`
+    }))
+  , [hourlyForecastData])
+
+  const renderLineChart = () => {
+    if (lineChartHourlyForecast.length === 0) return null
+
+    return (
+      <LineChart
+        data={lineChartHourlyForecast}
+      />
+    )
   }
 
   return (
@@ -47,7 +77,7 @@ export function ReportWeather (props: ReportWeatherProps) {
             <Box>
               <Typography color="white" bold>{data.name}</Typography>
             </Box>
-            <Typography color="heading" variants="4xl">{`${data?.main?.feels_like.toFixed(1)} °C`}</Typography>
+            <Typography color="heading" variants="4xl">{parseTemperatureLabel(data?.main?.feels_like)}</Typography>
           </Box>
           <Box gap={1}>
             <Box flexDirection="column" gap={0.5}>
@@ -79,7 +109,7 @@ export function ReportWeather (props: ReportWeatherProps) {
             <Box alignItems="center">
               <Box flexDirection="column" gap={0.5}>
                 <Typography variants="xxs">max</Typography>
-                <Typography color="heading">{`${data.main.temp_max} °C`}</Typography>
+                <Typography color="heading">{parseTemperatureLabel(data.main.temp_max)}</Typography>
               </Box>
               <IconPublic name="max" />
 
@@ -87,11 +117,12 @@ export function ReportWeather (props: ReportWeatherProps) {
             <Box alignItems="center">
               <Box flexDirection="column" gap={0.5}>
                 <Typography variants="xxs">min</Typography>
-                <Typography color="heading">{`${data.main.temp_min} °C`}</Typography>
+                <Typography color="heading">{parseTemperatureLabel(data.main.temp_min)}</Typography>
               </Box>
               <IconPublic name="min" />
             </Box>
           </Box>
+          {renderLineChart()}
         </Box>
       </Container>
     </Dialog>

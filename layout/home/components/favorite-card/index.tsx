@@ -1,6 +1,7 @@
-import { Box, Typography } from 'components'
-import { format } from 'lib/date-fns'
 import { memo } from 'react'
+
+import { Box, Typography } from 'components'
+import { parseDate, parseTemperatureLabel } from 'utils/helpers'
 
 import * as Styles from './styles'
 import { FavoriteCardProps } from './types'
@@ -27,7 +28,7 @@ export const FavoriteCard = memo((props: FavoriteCardProps) => {
             color="heading"
             ellipsis
           >{city}</Typography>
-          <Typography variants="2xl">{`${meanTemperature.toFixed(0)}°C`}</Typography>
+          <Typography variants="2xl">{parseTemperatureLabel(meanTemperature)}</Typography>
         </Box>
         <Box flexDirection="column" gap={1}>
           <Box flexDirection="column" gap={0.5}>
@@ -35,19 +36,19 @@ export const FavoriteCard = memo((props: FavoriteCardProps) => {
             <Typography
               color="heading"
               variants="heading"
-            >{`${minTemperature.toFixed(0)}°C`}</Typography>
+            >{parseTemperatureLabel(minTemperature)}</Typography>
           </Box>
           <Box flexDirection="column" gap={0.5}>
             <Typography>Max</Typography>
             <Typography
               color="heading"
               variants="heading"
-            >{`${maxTemperature.toFixed(0)}°C`}</Typography>
+            >{parseTemperatureLabel(maxTemperature)}</Typography>
           </Box>
         </Box>
       </Box>
       <Box marginTop={1} fullWidth>
-        <Typography>{format(new Date(createdAt), 'dd/MM/yyyy')}</Typography>
+        <Typography>{parseDate(createdAt)}</Typography>
       </Box>
     </Styles.Container>
   )

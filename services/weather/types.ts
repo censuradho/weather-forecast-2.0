@@ -1,6 +1,6 @@
 
 interface Coord {
-  long: number,
+  lon: number,
   lat: number
 }
 
@@ -51,4 +51,22 @@ export interface GetWeatherResponse {
   'id': 3163858,
   'name': 'Zocca',
   'cod': string | number
+}
+
+export interface GetHourlyForecastResponse {
+  cod: string,
+  message: number,
+  cnt: number,
+  list: Array<
+    Omit<GetWeatherResponse,
+      'cod'
+    > & {
+      dt_txt: string
+    }
+  >
+}
+
+export interface HourlyForecastProps {
+  lon: number;
+  lat: number
 }
