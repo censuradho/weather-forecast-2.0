@@ -1,5 +1,6 @@
 import { FAVORITES, RECENTS_KEY } from 'constants/localStorage'
 import { useLocalStorage } from 'hooks'
+import { uuid } from 'lib/uuid'
 import { createContext, ReactNode, useContext, useEffect } from 'react'
 import { getWeather } from 'services/weather'
 import { GetWeatherResponse } from 'services/weather/types'
@@ -11,11 +12,12 @@ interface Recent {
 
 export interface Favorite extends GetWeatherResponse {
   createdAt: string | Date
+  uuid: string
 }
 interface WeatherContextProps {
   favorites: Favorite[]
   addFavorite: (item: GetWeatherResponse) => void
-  removeFavorite: (id: number) => void
+  removeFavorite: (uuid: string) => void
   cleanFavoriteList: () => void,
   addRecent: (item: Recent) => void
   removeRecent: (id: number) => void
@@ -35,17 +37,18 @@ export function WeatherProvider ({ children }: WeatherProviderProps) {
   const handleAddFavorites = (item: GetWeatherResponse) => {
     const favorite: Favorite = {
       ...item,
+      uuid: uuid(),
       createdAt: new Date()
     }
 
     setFavorites(prevState => ([
-      ...prevState.filter(value => value.id !== item.id),
+      ...prevState.filter(value => value.uuid !== favorite.uuid),
       favorite
     ]))
   }
 
-  const handleRemoveFavorite = (id: number) => {
-    setFavorites(prevState => prevState.filter(value => value.id !== id))
+  const handleRemoveFavorite = (uuid: string) => {
+    setFavorites(prevState => prevState.filter(value => value.uuid !== uuid))
   }
 
   const handleCleanFavoriteList = () => {
@@ -70,6 +73,7 @@ export function WeatherProvider ({ children }: WeatherProviderProps) {
       const response = await getWeather(favorite.name)
       const newFavorite: Favorite = {
         ...response.data,
+        uuid: uuid(),
         createdAt: new Date(favorite.createdAt)
       }
       refetchFavorites.push(newFavorite)

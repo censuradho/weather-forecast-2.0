@@ -31,7 +31,6 @@ export function SearchLayout () {
   const {
     addRecent,
     recents,
-    favorites,
     removeRecent
   } = useWeatherContext()
 

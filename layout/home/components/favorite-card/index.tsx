@@ -21,6 +21,7 @@ export const FavoriteCard = memo((props: FavoriteCardProps) => {
         <Box
           flexDirection="column"
           gap={0.5}
+          flex={1}
         >
           <Typography
             color="heading"

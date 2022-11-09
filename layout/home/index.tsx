@@ -1,4 +1,4 @@
-import { Box, Button, Container } from 'components'
+import { Box, Button } from 'components'
 import { ReportWeather } from 'components/report-weather'
 import { paths } from 'constants/routes'
 import { Favorite, useWeatherContext } from 'context/weather'
@@ -43,21 +43,19 @@ export function HomeLayout () {
   return (
     <MainLayout>
       {renderReport()}
-      <Container>
-        <Styles.Container>
-          {renderFavoriteCards}
-        </Styles.Container>
-        <Box fullWidth marginTop={2}>
-          <Button
-            href={paths.search}
-            as="a"
-            icon={{
-              name: 'arrowForward'
-            }}
-            fullWidth
-          >Adicionar cidade</Button>
-        </Box>
-      </Container>
+      <Styles.Container>
+        {renderFavoriteCards}
+      </Styles.Container>
+      <Box fullWidth marginTop={2}>
+        <Button
+          href={paths.search}
+          as="a"
+          icon={{
+            name: 'arrowForward'
+          }}
+          fullWidth
+        >Adicionar cidade</Button>
+      </Box>
     </MainLayout>
   )
 }

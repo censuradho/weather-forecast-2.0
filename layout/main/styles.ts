@@ -2,9 +2,14 @@ import { styled } from 'stitches.config'
 
 export const Container = styled('div', {
   width: '100%',
-  minHeight: '100vh',
+  Height: '100vh',
   display: 'flex',
-  flexDirection: 'column'
+  flexDirection: 'column',
+  height: '100vh',
+
+  '@table-min': {
+    height: 'auto'
+  }
 })
 
 export const Header = styled('header', {

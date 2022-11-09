@@ -2,12 +2,15 @@ import { styled } from 'stitches.config'
 
 export const Container = styled('div', {
   width: '100%',
-  height: '100%',
-  overflow: 'auto',
-  display: 'grid',
-  gridTemplateColumns: 'repeat(2, 1fr)',
-  gap: '$4',
+  flex: 1,
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '1rem',
 
+  '@smartphone-min': {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, 1fr)'
+  },
   '@table-min': {
     gridTemplateColumns: 'repeat(3, 1fr)'
   }
