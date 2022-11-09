@@ -57,29 +57,36 @@ export function ReportWeather (props: ReportWeatherProps) {
             </Box>
           </Box>
           <Box gap={1}>
-            <Box flexDirection="column" gap={0.5}>
-              <Typography variants="xxs">Nascer do sol</Typography>
-              <Typography color="heading">{format(new Date(data.sys.sunrise), 'hh:mm')}</Typography>
+            <Box flexDirection="column" alignItems="flex-start" gap={0.5}>
+              <IconPublic name="sunrise" />
+              <Box flexDirection="column" gap={0.5}>
+                <Typography variants="xxs">Nascer do sol</Typography>
+                <Typography color="heading">{format(new Date(data.sys.sunrise), 'hh:mm')}</Typography>
+              </Box>
             </Box>
-            <Box flexDirection="column" gap={0.5}>
-              <Typography variants="xxs">Pôr do sol</Typography>
-              <Typography color="heading">{format(new Date(data.sys.sunset), 'hh:mm')}</Typography>
+            <Box flexDirection="column" alignItems="flex-start" gap={0.5}>
+              <IconPublic name="sunset" />
+              <Box flexDirection="column" gap={0.5}>
+                <Typography variants="xxs">Pôr do sol</Typography>
+                <Typography color="heading">{format(new Date(data.sys.sunset), 'hh:mm')}</Typography>
+              </Box>
             </Box>
           </Box>
           <Box gap={1}>
-            <Box>
-              <IconPublic name="max" />
+            <Box alignItems="center">
               <Box flexDirection="column" gap={0.5}>
                 <Typography variants="xxs">max</Typography>
                 <Typography color="heading">{`${data.main.temp_max} °C`}</Typography>
               </Box>
+              <IconPublic name="max" />
+
             </Box>
-            <Box>
-              <IconPublic name="min" />
+            <Box alignItems="center">
               <Box flexDirection="column" gap={0.5}>
                 <Typography variants="xxs">min</Typography>
                 <Typography color="heading">{`${data.main.temp_min} °C`}</Typography>
               </Box>
+              <IconPublic name="min" />
             </Box>
           </Box>
         </Box>
