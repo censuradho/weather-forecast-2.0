@@ -11,18 +11,16 @@ interface MainLayoutProps {
 
 export function MainLayout ({ children }: MainLayoutProps) {
   return (
-    <Container>
-      <Styles.Container>
-        <Styles.Header>
-          <Link href={paths.home}>
-            <Box alignItems="center" gap={1}>
-              <IconPublic size={45} name="logo" />
-              <Typography color="white">Weather forecast</Typography>
-            </Box>
-          </Link>
-        </Styles.Header>
-        {children}
-      </Styles.Container>
-    </Container>
+    <Styles.Container>
+      <Styles.Header>
+        <Link href={paths.home}>
+          <Box alignItems="center" gap={1}>
+            <IconPublic size={45} name="logo" />
+            <Typography color="white">Weather forecast</Typography>
+          </Box>
+        </Link>
+      </Styles.Header>
+      {children}
+    </Styles.Container>
   )
 }

@@ -1,7 +1,7 @@
 import { FAVORITES, RECENTS_KEY } from 'constants/localStorage'
 import { useLocalStorage } from 'hooks'
 import { uuid } from 'lib/uuid'
-import { createContext, ReactNode, useContext, useEffect } from 'react'
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 import { getWeather } from 'services/weather'
 import { GetWeatherResponse } from 'services/weather/types'
 
@@ -22,6 +22,8 @@ interface WeatherContextProps {
   addRecent: (item: Recent) => void
   removeRecent: (id: number) => void
   recents: Recent[]
+  refetchFavorites: () => Promise<void>
+  isFetching: boolean
 }
 
 interface WeatherProviderProps {
@@ -33,6 +35,7 @@ const WeatherContext = createContext({} as WeatherContextProps)
 export function WeatherProvider ({ children }: WeatherProviderProps) {
   const [favorites, setFavorites] = useLocalStorage<Favorite[]>(FAVORITES, [])
   const [recents, setRecents] = useLocalStorage<Recent[]>(RECENTS_KEY, [])
+  const [isFetching, setIsFetching] = useState(false)
 
   const handleAddFavorites = (item: GetWeatherResponse) => {
     const favorite: Favorite = {
@@ -67,19 +70,23 @@ export function WeatherProvider ({ children }: WeatherProviderProps) {
   }
 
   const handleFetchFavorite = async () => {
-    const refetchFavorites: Favorite[] = []
-
-    for (const favorite of favorites) {
-      const response = await getWeather(favorite.name)
-      const newFavorite: Favorite = {
-        ...response.data,
-        uuid: uuid(),
-        createdAt: new Date(favorite.createdAt)
+    try {
+      const refetchFavorites: Favorite[] = []
+      setIsFetching(true)
+      for (const favorite of favorites) {
+        const response = await getWeather(favorite.name)
+        const newFavorite: Favorite = {
+          ...response.data,
+          uuid: uuid(),
+          createdAt: new Date(favorite.createdAt)
+        }
+        refetchFavorites.push(newFavorite)
       }
-      refetchFavorites.push(newFavorite)
-    }
 
-    setFavorites(refetchFavorites)
+      setFavorites(refetchFavorites)
+    } finally {
+      setIsFetching(false)
+    }
   }
 
   useEffect(() => {
@@ -91,11 +98,13 @@ export function WeatherProvider ({ children }: WeatherProviderProps) {
       value={{
         favorites,
         recents,
+        isFetching,
         addFavorite: handleAddFavorites,
         removeFavorite: handleRemoveFavorite,
         cleanFavoriteList: handleCleanFavoriteList,
         addRecent: handleAddRecent,
-        removeRecent: handleRemoveRecent
+        removeRecent: handleRemoveRecent,
+        refetchFavorites: handleFetchFavorite
       }}>
       {children}
     </WeatherContext.Provider>

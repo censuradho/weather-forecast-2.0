@@ -1,8 +1,8 @@
 import { styled } from 'stitches.config'
+import { Container as RootContainer } from 'components'
 
-export const Container = styled('div', {
+export const Container = styled(RootContainer, {
   width: '100%',
-  Height: '100vh',
   display: 'flex',
   flexDirection: 'column',
   height: '100vh',

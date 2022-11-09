@@ -1,0 +1,16 @@
+import { memo } from 'react'
+import ContentLoader from 'react-content-loader'
+import { theme } from 'stitches.config'
+
+export const FavoriteCardLoader = memo(() => (
+  <ContentLoader
+    speed={0.5}
+    width={400}
+    height={164}
+    viewBox="0 0 400 164"
+    backgroundColor={theme.colors.background.value}
+    foregroundColor={theme.colors.foreground.value}
+  >
+    <rect x="0" y="0" rx="0" ry="0" width="400" height="164" />
+  </ContentLoader>
+))

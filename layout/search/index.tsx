@@ -1,20 +1,21 @@
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useMemo, useState } from 'react'
+import { useRouter } from 'next/router'
 
 import { Box, ButtonIcon, Container, Input, Typography } from 'components'
+import { ReportWeather } from 'components/report-weather'
 import { MainLayout } from 'layout/main'
 import { useDebounce } from 'hooks'
 import { useWeather } from 'hooks/services'
+import { useWeatherContext } from 'context/weather'
+import { paths } from 'constants/routes'
+import { GetWeatherResponse } from 'services/weather/types'
 
 import * as Styles from './styles'
 import { searchSchemaValidation } from './validations'
 import { SearchFormData } from './types'
-import { useWeatherContext } from 'context/weather'
-import { useMemo, useState } from 'react'
-import { useRouter } from 'next/router'
-import { paths } from 'constants/routes'
-import { ReportWeather } from 'components/report-weather'
-import { GetWeatherResponse } from 'services/weather/types'
+import { RowLoader } from './components/row-loader'
 
 export function SearchLayout () {
   const {
@@ -36,7 +37,7 @@ export function SearchLayout () {
 
   const city = useDebounce(watch('city'), 1000)
 
-  const { data, error, fetchData } = useWeather(city)
+  const { data, error, fetchData, isLoading } = useWeather(city)
   const [report, setReport] = useState<GetWeatherResponse | null>(null)
 
   const onSubmit = async (data: SearchFormData) => {
@@ -79,6 +80,8 @@ export function SearchLayout () {
   }
 
   const renderResult = () => {
+    if (isLoading) return <RowLoader />
+
     if (error) return <Typography>Nenhum resultado encontrado</Typography>
 
     if (!data) return <Typography>Pesquise a cima para exibir resultados</Typography>

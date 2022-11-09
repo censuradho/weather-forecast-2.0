@@ -28,6 +28,7 @@ const {
 })
 
 const globalStyle = GlobalCss({
+
   '*': {
     padding: '0',
     margin: '0',
