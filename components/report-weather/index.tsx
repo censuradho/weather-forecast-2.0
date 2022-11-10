@@ -8,8 +8,7 @@ import {
 } from 'components'
 import { useWeatherContext } from 'context/weather'
 import { format } from 'lib/date-fns'
-import { useEffect, useMemo } from 'react'
-import { getHourlyForecast } from 'services/weather'
+import { useMemo } from 'react'
 
 import { ReportWeatherProps } from './types'
 import { LineChart } from './components'

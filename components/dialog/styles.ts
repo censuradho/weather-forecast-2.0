@@ -25,6 +25,7 @@ export const Content = styled(DialogPrimitive.Content, {
   background: '$backgroundGradient',
   zIndex: 20,
   top: '0',
+  overflow: 'auto',
   left: '0',
   width: '100%',
   height: '100vh',
