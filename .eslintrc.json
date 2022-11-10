@@ -23,6 +23,7 @@
         "react/react-in-jsx-scope": "off",
         "react/display-name": "off",
         "indent": ["error", 2],
-        "n/no-callback-literal": "off"
+        "n/no-callback-literal": "off",
+        "no-undef": "off"
     }
 }

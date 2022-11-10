@@ -3,6 +3,7 @@ export interface FavoriteCardProps {
   minTemperature: number,
   maxTemperature: number,
   meanTemperature: number,
+  createdAt: string | Date,
+  isCurrentLocation?: boolean
   onClick?: () => void,
-  createdAt: string | Date
 }

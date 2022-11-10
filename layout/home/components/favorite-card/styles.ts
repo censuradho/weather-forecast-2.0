@@ -1,5 +1,13 @@
 import { styled } from 'stitches.config'
 
+export const CurrentLocationTag = styled('span', {
+  background: '$white',
+  padding: '0.5rem',
+  borderRadius: '$default',
+  color: '$background',
+  fontSize: '$xs'
+})
+
 export const Container = styled('div', {
   minHeight: '10rem',
   maxHeight: '12rem',
@@ -13,6 +21,19 @@ export const Container = styled('div', {
   justifyContent: 'center',
   flexDirection: 'column',
 
+  variants: {
+    active: {
+      true: {
+        background: '$primary',
+        '*': {
+          color: '$background !important'
+        },
+        strong: {
+          fontWeight: 500
+        }
+      }
+    }
+  },
   '@table-min': {
     padding: '1rem'
   }

@@ -24,6 +24,7 @@ export function HomeLayout () {
         <FavoriteCard
           key={index}
           city={value.name}
+          isCurrentLocation={value.isCurrentLocation}
           maxTemperature={value.main.temp_max}
           meanTemperature={value.main.temp}
           minTemperature={value.main.temp_min}

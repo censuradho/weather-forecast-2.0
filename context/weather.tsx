@@ -1,8 +1,8 @@
 import { FAVORITES, RECENTS_KEY } from 'constants/localStorage'
-import { useLocalStorage } from 'hooks'
+import { useLocalStorage, useLocation } from 'hooks'
 import { uuid } from 'lib/uuid'
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
-import { getWeather } from 'services/weather'
+import { getWeather, getWeatherByLatLon } from 'services/weather'
 import { GetWeatherResponse } from 'services/weather/types'
 
 interface Recent {
@@ -13,6 +13,7 @@ interface Recent {
 export interface Favorite extends GetWeatherResponse {
   createdAt: string | Date
   uuid: string
+  isCurrentLocation?: boolean
 }
 interface WeatherContextProps {
   favorites: Favorite[]
@@ -36,6 +37,8 @@ export function WeatherProvider ({ children }: WeatherProviderProps) {
   const [favorites, setFavorites] = useLocalStorage<Favorite[]>(FAVORITES, [])
   const [recents, setRecents] = useLocalStorage<Recent[]>(RECENTS_KEY, [])
   const [isFetching, setIsFetching] = useState(false)
+
+  const { coords } = useLocation()
 
   const handleAddFavorites = (item: GetWeatherResponse) => {
     const favorite: Favorite = {
@@ -91,9 +94,34 @@ export function WeatherProvider ({ children }: WeatherProviderProps) {
     }
   }
 
+  const handleFetchCurrentLocationByLatLon = async () => {
+    if (!coords) return
+
+    const { data } = await getWeatherByLatLon({
+      lat: coords.latitude,
+      lon: coords.longitude
+    })
+
+    const favorite: Favorite = {
+      ...data,
+      uuid: uuid(),
+      createdAt: new Date(),
+      isCurrentLocation: true
+    }
+
+    setFavorites(prevState => ([
+      favorite,
+      ...prevState.filter(value => value.id !== data.id)
+    ]))
+  }
+
   useEffect(() => {
     handleFetchFavorite()
   }, [])
+
+  useEffect(() => {
+    handleFetchCurrentLocationByLatLon()
+  }, [coords])
 
   return (
     <WeatherContext.Provider
